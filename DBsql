@@ -1,0 +1,366 @@
+-- phpMyAdmin SQL Dump
+-- version 4.2.7.1
+-- http://www.phpmyadmin.net
+--
+-- Host: 127.0.0.1
+-- Generation Time: Mar 18, 2015 at 11:27 AM
+-- Server version: 5.6.20
+-- PHP Version: 5.5.15
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- Database: `vizagite`
+--
+
+DELIMITER $$
+--
+-- Functions
+--
+use vizagite;
+CREATE DEFINER=`root`@`localhost` FUNCTION `getLanguageLabel`(`aLabelID` INT) RETURNS varchar(1000) CHARSET latin1
+begin
+declare vServiceDesc varchar(1000);
+select English into vServiceDesc from tbllanguage
+where LabelID=aLabelID;
+return(vServiceDesc);
+end$$
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblerrors`
+--
+
+CREATE TABLE IF NOT EXISTS `tblerrors` (
+  `ErrorDate` datetime DEFAULT NULL,
+  `ErrorMessage` varchar(500) DEFAULT NULL,
+  `ErrorSource` varchar(100) DEFAULT NULL,
+  `ErrorInnerException` varchar(100) DEFAULT NULL,
+  `Other` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblfeedback`
+--
+
+CREATE TABLE IF NOT EXISTS `tblfeedback` (
+  `FeedbackText` varchar(2000) DEFAULT NULL,
+  `FeedbackDate` datetime DEFAULT NULL,
+  `IPAddress` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblhitlog`
+--
+
+CREATE TABLE IF NOT EXISTS `tblhitlog` (
+  `logDateTime` datetime DEFAULT NULL,
+  `logIP` char(15) DEFAULT NULL,
+  `logBrowser` varchar(200) DEFAULT NULL,
+  `logOS` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbllanguage`
+--
+
+CREATE TABLE IF NOT EXISTS `tbllanguage` (
+`LabelID` int(11) NOT NULL,
+  `English` varchar(1000) DEFAULT NULL,
+  `Telugu` varchar(2000) CHARACTER SET utf8 DEFAULT NULL,
+  `Hindi` varchar(2000) CHARACTER SET utf8 DEFAULT NULL,
+  `Tamil` varchar(2000) CHARACTER SET utf8 DEFAULT NULL,
+  `Kannada` varchar(2000) CHARACTER SET utf8 DEFAULT NULL,
+  `Malayalam` varchar(2000) CHARACTER SET utf8 DEFAULT NULL,
+  `Marati` varchar(2000) CHARACTER SET utf8 DEFAULT NULL,
+  `Oriya` varchar(2000) CHARACTER SET utf8 DEFAULT NULL,
+  `Bengali` varchar(2000) CHARACTER SET utf8 DEFAULT NULL,
+  `Gujarati` varchar(2000) CHARACTER SET utf8 DEFAULT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=133 ;
+
+--
+-- Dumping data for table `tbllanguage`
+--
+
+INSERT INTO `tbllanguage` (`LabelID`, `English`, `Telugu`, `Hindi`, `Tamil`, `Kannada`, `Malayalam`, `Marati`, `Oriya`, `Bengali`, `Gujarati`) VALUES
+(1, '* If a user is found to be misusing the website by submitting non-usable information, his/her mobile number will be blocked from this website i.e., no registrations from that mobile number will be entertained thereafter.', '* నిరుపయోగమైన వివరములను ఇచ్చి, ఈ వెబ్ సైట్ ను దుర్వినియోగ పరిచే వినియోగదారుని మొబైల్ నంబరు ఈ వెబ్ సైట్ నుండి నిషేధించ బడుతుంది.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(2, '* If a User wants to update/renew his/her rigistration details, he/she can do so by registering again and the validation period is counted from the date and time of the last registration.', '* వినియోగదారుడు తన రిజిస్ట్రేషన్ వివరాలను మార్చుకోవాలన్నా, కొత్త వివరాలు ఇవ్వాలన్నా, మళ్లీ రిజిస్టరు చేసుకోవలసి వుంటుంది. మార్చిన వివరాలు మార్చిన రోజునుండి 15 రోజులవరకు చూపబడతాయి.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(3, '* In order to avoid misuse of this website, the Team takes all rights to edit/reject the registration information provided by the User.', '* ఈ వెబ్ సైట్ ని దుర్వినియోగ పడనీయకుండా చూడడానికి - రిజిస్ట్రేషన్ వివరాలను మార్చే/తిరస్కరించే హక్కులు బృందానికి వుంటాయి.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(4, '* The registration information provided by a User is valid for 15 days counting from the date of registration.', '* వినియోగదారుని ద్వారా ఇవ్వబడిన రిజిస్ట్రేషన్ వివరాలు 15 రోజులవరకు మాత్రమే ఈ వెబ్ సైట్ లో చూపబడతాయి.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(5, '* The Team can technically make sure that the mobile numbers of Users provided in this website are in use (working numbers) at the time of registration. And the Team does not \r\n\r\nhold the responsibility of any kind of damage that takes place either directly or indirectly because of using the mobile numbers of other Users given in the website.', '* రిజిస్ట్రేషన్ ఫారం ద్వారా ఇవ్వబడిన వినియోగదారుల మొబైల్ నంబర్లు వినియోగంలో వున్నవేనని నిర్ధారించిన తరువాతే ఈ వెబ్ సైట్ లో ఇవ్వబడతాయి. ఐతే ఆ మొబైల్ నంబరు వినియోగించడం ద్వారా వినియోగదారునికి ప్రత్యక్షం గా కాని, పరోక్షంగా కాని ఒకవేళ ఎటువంటి ఇబ్బంది కలిగినా, దానికి బృందం ఎటువంటి బాధ్యతా వహించదు.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(6, '* The terms &amp; conditions given here are subjected to change from time to time.', '* ఇక్కడ ఇవ్వబడిన నిబంధనలు మరియు షరతులు ఎప్పుడైనా మార్చే హక్కు బృందానికి వుంది.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(7, '* This is a service oriented website. &quot;Team&quot; refers to the people involved in development and maintenance of this website. &quot;User&quot; refers to any individual who registers in this website in order to provide/receive various services.', '* సేవా దృక్పథం తో ఈ వెబ్ సైట్ తయారు చేయబడింది.&quot;బృందం&quot; అంటే ఈ వెబ్ సైట్ తయారు చేసి మరియు నిర్వహణ చేస్తున్న వ్యక్తులు.&quot;వినియోగదారుడు&quot; అంటే ఈ వెబ్ సైట్ లో రిజిస్టరు చేసుకుని వ్యక్తిగత ప్రయోజనం పొందగోరే వ్యక్తి.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(8, '&lt;a href=http://www.nistvizag.com&gt;nist&lt;/a&gt;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(9, 'A few ways to lend a helping hand:', 'మీరు ఈ వెబ్ సైట్ ద్వారా సహాయం చేయడానికి కొన్ని మార్గాలు:', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(10, 'A valid phone number and a valid password are required to register.', 'రిజిస్టరు చేసుకోడానికి సరి అయిన మొబైల్ నంబరు, పాస్ వర్డ్ అవసరం.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(11, 'Academic ', 'విద్య', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(12, 'Acting', 'నటన*', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(13, 'Address', 'అడ్రస్', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(14, 'Address/Area/Street', 'అడ్రస్/ప్రాంతం/వీధి', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(15, 'Advance', 'అడ్వాన్స్', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(16, 'Allopathy, Ayurvedic, Homeopathy, Naturopathy, Yoga, Psychiatry practitioners can register here ', 'ఇంగ్లీషు వైద్యం, ఆయుర్వేదం, హొమియొపతి, నేచురోపతి, యోగ, సైకియాట్రిస్ట్ మొదలైన వైద్యులు రిజిస్టర్ చేసుకోవచ్చును.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(17, 'Anakapalle', 'అనకాపల్లి', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(18, 'Are you ready to relocate?', 'మీరు ఏ ఊరిలోనైనా పనిచేయగలరా?', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(19, 'Are you willing to help poor people?', 'మీరు పేదవారికి సహాయం చేద్దామనుకుంటున్నారా?', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(20, 'Area', 'ప్రదేశం', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(21, 'Area of Specialization', 'మీ ప్రత్యేకత', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(22, 'Arts', 'కళలు', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(23, 'Ayurvedic', 'ఆయుర్వేదం', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(24, 'Benefits to meritorious and financially poor students', 'మెరిట్ మరియు పేద విద్యార్థులకు ప్రోత్సాహక బహుమతులు మరియు ఆర్థిక సహాయం', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(25, 'Blood Donors', 'రక్త దానం', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(26, 'Blood group', 'బ్లడ్ గ్రూప్', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(27, 'Books', 'పుస్తకాలు', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(28, 'Bride', 'పెళ్లి కూతురు', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(29, 'Bride Groom Name', 'పెళ్లి కొడుకు పేరు', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(30, 'Bride Name', 'పెళ్లి కూతురు పేరు', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(31, 'Brilliant students who cannot afford to buy books or pay college-fee/bank/competitive-exam-fee can register. Write these details in ''Need'' column.', 'బాగా చదువుకుంటూ,పుస్తకాలు కొనుక్కోలేక కాలేజి ఫీజు లేదా  బ్యాంక్/గవర్నమెంట్ పోటీ పరీక్షల ఫీజు కట్టుకోలేని వారు ఆ వివరాలను ''అవసరం'' లో రాయవచ్చు.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(32, 'Budget', 'బడ్జెట్', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(33, 'Buy/Sell', 'కొను/అమ్ము', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(34, 'Buyer', 'కొనేవారు', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(35, 'Can you provide free service to poor citizens?', 'మీరు పేద వ్యక్తులకు ఉచితంగా సేవలు అందించగలరా?', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(49, 'Can you provide free tuition to poor students?', '&#3114;&#3143;&#3110; &#3125;&#3135;&#3110;&#3149;&#3119;&#3134;&#3120;&#3149;&#3109;&#3137;&#3122;&#3093;&#3137; &#3081;&#3098;&#3135;&#3108;&#3074;&#3095;&#3134; &#3098;&#3142;&#3114;&#3149;&#3114;&#3095;&#3122;&#3120;&#3134;?', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 'Career', '&#3093;&#3142;&#3120;&#3136;&#3120;&#3149;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(51, 'Caretaker', '&#3128;&#3074;&#3120;&#3093;&#3149;&#3127;&#3093;&#3137;&#3122;&#3137;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(52, 'Carpenter', '&#3125;&#3105;&#3149;&#3120;&#3074;&#3095;&#3135;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(53, 'Caste', '&#3093;&#3137;&#3122;&#3118;&#3137;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(54, 'Catering', '&#3093;&#3143;&#3103;&#3120;&#3135;&#3074;&#3095;&#3149;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(55, 'Chess', '&#3098;&#3110;&#3120;&#3074;&#3095;&#3074;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(56, 'Clean&Green', '&#3114;&#3120;&#3149;&#3119;&#3134;&#3125;&#3120;&#3107;&#3074;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(57, 'Clothes', '&#3116;&#3103;&#3149;&#3103;&#3122;&#3137;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(58, 'Coach', '&#3093;&#3147;&#3098;&#3149;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(59, 'Colleges', '&#3093;&#3123;&#3134;&#3126;&#3134;&#3122;&#3122;&#3137;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(62, 'Computer Servicing', '&#3093;&#3074;&#3114;&#3149;&#3119;&#3138;&#3103;&#3120;&#3149; &#3120;&#3135;&#3114;&#3143;&#3120;&#3149;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(63, 'Computers', '&#3093;&#3074;&#3114;&#3149;&#3119;&#3138;&#3103;&#3120;&#3149;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(64, 'Convenient time', '&#3077;&#3112;&#3137;&#3093;&#3138;&#3122; &#3128;&#3118;&#3119;&#3074;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(65, 'Counsel', '&#3128;&#3122;&#3129;&#3134;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(66, 'Crafts', '&#3098;&#3143;&#3108;&#3135;&#3114;&#3112;&#3137;&#3122;&#3137;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(67, 'Creative Ideas', '&#3093;&#3149;&#3120;&#3135;&#3119;&#3143;&#3103;&#3135;&#3125;&#3149; &#3088;&#3105;&#3135;&#3119;&#3134;&#3122;&#3137;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(68, 'Creche', '&#3114;&#3135;&#3122;&#3149;&#3122;&#3122; &#3128;&#3074;&#3120;&#3093;&#3149;&#3127;&#3107;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(69, 'Cricket', '&#3093;&#3149;&#3120;&#3135;&#3093;&#3142;&#3103;&#3149;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(70, 'Cycling/Bike', '&#3128;&#3144;&#3093;&#3135;&#3122;&#3149; &#3112;&#3143;&#3120;&#3149;&#3114;&#3137;&#3103;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(71, 'Dance', '&#3105;&#3134;&#3112;&#3149;&#3128;&#3149;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(72, 'Dancers', '&#3105;&#3134;&#3112;&#3149;&#3128;&#3120;&#3149;&#3128;&#3149;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(73, 'Date', '&#3108;&#3143;&#3110;&#3135;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(74, 'Date of birth', '&#3114;&#3137;&#3103;&#3149;&#3103;&#3135;&#3112; &#3108;&#3143;&#3110;&#3136;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(75, 'Decorators', '&#3077;&#3122;&#3074;&#3093;&#3120;&#3107;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(76, 'Details of your Art(s)', '&#3118;&#3136;&#3093;&#3137; &#3108;&#3142;&#3122;&#3135;&#3128;&#3135;&#3112; &#3093;&#3123;(&#3122;) &#3125;&#3135;&#3125;&#3120;&#3134;&#3122;&#3137;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(77, 'Doctors', '&#3125;&#3144;&#3110;&#3149;&#3119;&#3137;&#3122;&#3137;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(78, 'Drawing', '&#3098;&#3135;&#3108;&#3149;&#3120; &#3122;&#3143;&#3094;&#3112;&#3074;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(79, 'Eco-Club', '&#3086;&#3093;&#3147; &#3093;&#3149;&#3122;&#3116;&#3149;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(80, 'Eco-Expert', '&#3086;&#3093;&#3147; &#3112;&#3135;&#3114;&#3137;&#3107;&#3137;&#3105;&#3137;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(81, 'Education', '&#3098;&#3110;&#3137;&#3125;&#3137;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(82, 'Electrician', '&#3093;&#3120;&#3142;&#3074;&#3103;&#3137; &#3114;&#3112;&#3137;&#3122;&#3137;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(83, 'EmailAddress', '&#3079;-&#3118;&#3142;&#3119;&#3135;&#3122;&#3149; &#3086;&#3105;&#3149;&#3120;&#3128;&#3149;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(84, 'Employer', '&#3079;&#3128;&#3149;&#3108;&#3137;&#3112;&#3149;&#3112;&#3125;&#3134;&#3120;&#3137;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(85, 'English', '&#3078;&#3074;&#3095;&#3149;&#3122;&#3118;&#3137;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(86, 'Enter', '&#3114;&#3149;&#3120;&#3125;&#3143;&#3126;&#3135;&#3074;&#3098;&#3074;&#3105;&#3135;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(87, 'Event', '&#3093;&#3134;&#3120;&#3149;&#3119;&#3093;&#3149;&#3120;&#3118;&#3074;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(88, 'Event Date\r\n', '&#3093;&#3134;&#3120;&#3149;&#3119;&#3093;&#3149;&#3120;&#3118;&#3074; &#3108;&#3143;&#3110;&#3136;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(89, 'Event Time', '&#3093;&#3134;&#3120;&#3149;&#3119;&#3093;&#3149;&#3120;&#3118;&#3074; &#3128;&#3118;&#3119;&#3074;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(90, 'Event Venue', '&#3093;&#3134;&#3120;&#3149;&#3119;&#3093;&#3149;&#3120;&#3118;&#3074; &#3128;&#3149;&#3109;&#3122;&#3118;&#3137;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(91, 'Events', '&#3093;&#3134;&#3120;&#3149;&#3119;&#3093;&#3149;&#3120;&#3118;&#3134;&#3122;&#3137;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(92, 'Excess Food', '&#3086;&#3093;&#3149;&#3093;&#3137;&#3125;&#3144;&#3112; &#3078;&#3129;&#3134;&#3120;&#3074;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(93, 'Experience', '&#3077;&#3112;&#3137;&#3117;&#3125;&#3074;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(94, 'Fashion Design', '&#3115;&#3149;&#3119;&#3134;&#3127;&#3112;&#3149; &#3105;&#3135;&#3100;&#3144;&#3112;&#3149;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(95, 'Fee Support', '&#3078;&#3120;&#3149;&#3109;&#3135;&#3093; &#3128;&#3129;&#3134;&#3119;&#3074;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(96, 'Feedback/Suggestions', '&#3077;&#3117;&#3135;&#3114;&#3149;&#3120;&#3134;&#3119;&#3134;&#3122;&#3137;/&#3128;&#3122;&#3129;&#3134;&#3122;&#3137;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(97, 'Food Items', '&#3078;&#3129;&#3134;&#3120;&#3074;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(98, 'Football', '&#3115;&#3137;&#3103;&#3149; &#3116;&#3134;&#3122;&#3149;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(99, 'Found', '&#3110;&#3146;&#3120;&#3135;&#3093;&#3135;&#3074;&#3110;&#3135;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(100, 'Free Books ', '&#3081;&#3098;&#3135;&#3108; &#3114;&#3137;&#3128;&#3149;&#3108;&#3093;&#3134;&#3122;&#3137;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(101, 'Function Needs', '&#3126;&#3137;&#3117;&#3093;&#3134;&#3120;&#3149;&#3119; &#3077;&#3125;&#3128;&#3120;&#3134;&#3122;&#3137;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(102, 'Gardening', '&#3108;&#3147;&#3103;&#3114;&#3112;&#3135;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(103, 'Gotram', 'గోత్రం', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(104, 'Groom', 'పెళ్లి కొడుకు', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(105, 'Hardware Learner', 'హార్డ్ వేర్ నేర్చుకునేవారు', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(106, 'Hardware Trainer', 'హార్డ్ వేర్ నేర్పేవారు', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(107, 'Health', 'ఆరోగ్యం', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(108, 'Height', 'ఎత్తు', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(109, 'Helpers', 'సహాయకులు', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(110, 'Hockey', 'హాకీ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(111, 'Home Learner', 'హోం లెర్నర్', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(112, 'Home Meal', 'ఇంటి భోజనం', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(113, 'Home Needs', 'గృహావసరాలు', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(114, 'Home Tutions', 'హోం ట్యూషన్లు', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(115, 'Home Tutor', 'హోం ట్యూటర్', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(116, 'Hospital Address', 'హాస్పిటల్ అడ్రస్', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(117, 'Hospital Name', 'హాస్పిటల్ పేరు', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(118, 'House Details', 'ఇంటి వివరాలు', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(119, 'I Can Help', 'సహాయం చేస్తాను', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(120, 'I Need Help', 'సహాయం కావాలి', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(121, 'If you are at home and willing to take cooking orders for limited people which will be collected by the customer from your house please register.', 'మీరు గృహిణి అయితే ఇంట్లోనే ఉంటూ కొద్దిమందికి భోజనం ఆర్డర్లు వండగలిగితే ఆ వివరాలను రాయండి.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(122, 'If you can counsel/give advice in Education, Career, Matrimonial etc., please give details.', 'మీరు చదువు , కెరీర్, వివాహ సంబంధమైన మరియు ఇతర సలహాలు ఇవ్వగలిగిన అనుభవజ్ఞులైతే మీ వివరలు రిజిస్టర్ చేయండి.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(123, 'If you can help the poor in the form of food, clothes or things;please give the details.', 'ఆహారం, బట్టలు లేదా వస్తు రూపంలో మీరు పేదవారికి సహాయం చేయగలిగితే వివరాలు రాయండి .', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(128, 'awsdf', 'మీరు', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(129, 'pedhavariki', ' పేదవారికి', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(130, 'ljfkvjfvjzdfhvjhsdfuvhsklfjmbvkjf', 'మొబైల్ నంబర్లు', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(132, 'kjhb', 'నిరుపయోగమైన వివరములను', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblserviceconfig`
+--
+
+CREATE TABLE IF NOT EXISTS `tblserviceconfig` (
+  `ServiceID` int(11) NOT NULL,
+  `FieldName1` int(11) DEFAULT NULL,
+  `FieldName2` int(11) DEFAULT NULL,
+  `FieldName3` int(11) DEFAULT NULL,
+  `FieldName4` int(11) DEFAULT NULL,
+  `FieldName5` int(11) DEFAULT NULL,
+  `FieldName6` int(11) DEFAULT NULL,
+  `FieldName7` int(11) DEFAULT NULL,
+  `FieldName8` int(11) DEFAULT NULL,
+  `FieldName9` int(11) DEFAULT NULL,
+  `FieldName10` int(11) DEFAULT NULL,
+  `FieldDescription1` int(11) DEFAULT NULL,
+  `FieldDescription2` int(11) DEFAULT NULL,
+  `FieldDescription3` int(11) DEFAULT NULL,
+  `FieldDescription4` int(11) DEFAULT NULL,
+  `FieldDescription5` int(11) DEFAULT NULL,
+  `FieldDescription6` int(11) DEFAULT NULL,
+  `FieldDescription7` int(11) DEFAULT NULL,
+  `FieldDescription8` int(11) DEFAULT NULL,
+  `FieldDescription9` int(11) DEFAULT NULL,
+  `FieldDescription10` int(11) DEFAULT NULL,
+  `DefaultOrderFieldNumber` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblservicedata`
+--
+
+CREATE TABLE IF NOT EXISTS `tblservicedata` (
+  `ServiceID` int(11) NOT NULL,
+  `MobilePhone` char(11) NOT NULL,
+  `TownID` varchar(20) NOT NULL,
+  `UserID` int(11) NOT NULL,
+  `UserName` varchar(100) DEFAULT NULL,
+  `UserPassword` varchar(20) DEFAULT NULL,
+  `EmailAddress` varchar(50) DEFAULT NULL,
+  `FieldValue1` varchar(2000) DEFAULT NULL,
+  `FieldValue2` varchar(2000) DEFAULT NULL,
+  `FieldValue3` varchar(2000) DEFAULT NULL,
+  `FieldValue4` varchar(2000) DEFAULT NULL,
+  `FieldValue5` varchar(2000) DEFAULT NULL,
+  `FieldValue6` varchar(2000) DEFAULT NULL,
+  `FieldValue7` varchar(2000) DEFAULT NULL,
+  `FieldValue8` varchar(2000) DEFAULT NULL,
+  `FieldValue9` varchar(2000) DEFAULT NULL,
+  `FieldValue10` varchar(2000) DEFAULT NULL,
+  `Approved` bit(1) DEFAULT NULL,
+  `URLField` int(11) DEFAULT NULL,
+  `URL` varchar(200) DEFAULT NULL,
+  `RegDate` datetime DEFAULT NULL,
+  `StartDate` datetime DEFAULT NULL,
+  `EndDate` datetime DEFAULT NULL,
+  `Visits` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblservices`
+--
+
+CREATE TABLE IF NOT EXISTS `tblservices` (
+`ServiceID` int(11) NOT NULL,
+  `ServiceDescription` varchar(50) NOT NULL,
+  `ServiceToolTip` varchar(250) DEFAULT NULL,
+  `ServiceMessage` varchar(1000) DEFAULT NULL,
+  `ParentServiceID` int(11) DEFAULT NULL,
+  `ShowRegisterButton` bit(1) DEFAULT NULL,
+  `ServiceImage` varchar(200) DEFAULT NULL,
+  `ServiceURL` varchar(200) DEFAULT NULL,
+  `ServiceStatus` int(11) DEFAULT NULL,
+  `DisplayOrder` int(11) DEFAULT NULL,
+  `TownID` varchar(20) DEFAULT NULL,
+  `ExpiryPeriod` int(11) DEFAULT NULL,
+  `ServiceVisits` int(11) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=34 ;
+
+--
+-- Dumping data for table `tblservices`
+--
+
+INSERT INTO `tblservices` (`ServiceID`, `ServiceDescription`, `ServiceToolTip`, `ServiceMessage`, `ParentServiceID`, `ShowRegisterButton`, `ServiceImage`, `ServiceURL`, `ServiceStatus`, `DisplayOrder`, `TownID`, `ExpiryPeriod`, `ServiceVisits`) VALUES
+(27, '25', '25', '25', NULL, NULL, 'blooddonors.jpg', 'http://localhost/lalitha/vizagite/newservice.php', 1, 1, '', NULL, 0),
+(28, '28', '28', '28', NULL, NULL, 'bride.jpg', 'http://localhost/lalitha/vizagite/newservice.php', 1, 2, '', NULL, 0),
+(29, '33', '33', '33', NULL, NULL, 'buysell.jpg', 'http://localhost/lalitha/vizagite/newservice.php', 1, 3, '', NULL, 0),
+(30, '34', '34', '34', NULL, NULL, 'buyer.jpg', 'http://localhost/lalitha/vizagite/newservice.php', 1, 4, '', NULL, 0),
+(31, '52', '52', '52', NULL, NULL, 'carpenter.jpg', 'http://localhost/lalitha/vizagite/newservice.php', 1, 5, '', NULL, 0),
+(33, '54', '54', '54', NULL, NULL, 'catering.jpg', 'http://localhost/lalitha/vizagite/newservice.php', 1, 6, '', NULL, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblusers`
+--
+
+CREATE TABLE IF NOT EXISTS `tblusers` (
+  `UserID` int(11) NOT NULL,
+  `UserName` varchar(100) NOT NULL,
+  `UserFirstName` varchar(50) DEFAULT NULL,
+  `MobilePhone` char(10) NOT NULL,
+  `EmailAddress` varchar(50) DEFAULT NULL,
+  `ResPhone` char(20) DEFAULT NULL,
+  `DoorNumber` char(20) DEFAULT NULL,
+  `Street` varchar(50) DEFAULT NULL,
+  `Location` varchar(50) DEFAULT NULL,
+  `TownID` varchar(20) DEFAULT NULL,
+  `UserPassword` varchar(40) DEFAULT NULL,
+  `UserStatus` int(11) NOT NULL,
+  `RegDate` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `tbllanguage`
+--
+ALTER TABLE `tbllanguage`
+ ADD PRIMARY KEY (`LabelID`);
+
+--
+-- Indexes for table `tblservices`
+--
+ALTER TABLE `tblservices`
+ ADD PRIMARY KEY (`ServiceID`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `tbllanguage`
+--
+ALTER TABLE `tbllanguage`
+MODIFY `LabelID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=133;
+--
+-- AUTO_INCREMENT for table `tblservices`
+--
+ALTER TABLE `tblservices`
+MODIFY `ServiceID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=34;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
