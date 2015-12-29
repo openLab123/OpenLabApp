@@ -1,10 +1,11 @@
-/************************ STEPS TO CONFIGURE MYSQL SERVER  ON CLOUD ******************************/
+/****************STEPS TO CONFIGURE MYSQL SERVER  ON CLOUD. WE PREFER YOU TO USE PUTTY IS YOUR TRYING TO ACCESS YOUR SERVER*************/
+
 To install mysql server on cloud use the following commands:
 
 sudo apt-get install mysql-server
 You should set a password for mysql login
 
-you should edit mysql config file with the following commands
+/****you should edit mysql config file with the following commands
 sudo nano /etc/mysql/my.cnf
 find the section labelled [mysqld] then you will find bind-address = "your should write your droplet IP here"
 /**** Use Ctrl+V to go next page 
