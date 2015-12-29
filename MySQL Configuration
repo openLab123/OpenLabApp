@@ -14,8 +14,8 @@ It'll save your config file.
 
 You've to restart your mysql server by using command "sudo service mysql restart".
 
-Now login to your mysql database using command "mysql -u root -p"
-then enter your Password.
+Now login to your mysql database using command "mysql -u -h 188.166.176.248 root -p"
+then enter your Password is OpenLab.
 
 Now use command as follows
 "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'Your Password' WITH GRANT OPTION;"
