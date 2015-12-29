@@ -1,0 +1,60 @@
+MySQL Configuration v1.0
+
+THIS FILE CONTAINS SENSITIVE PROCEDURES SO IT IS RECOMMENEDED NOT TO FIDDLE WITH THIS FILE.  
+
+
+CONTENTS OF THIS FILE
+---------------------
+   
+ * INTRODUCTION
+ * REQUIRMENTS
+ * INSTALLATION
+ * CONFIGURATION
+ * TEST REMOTE CONNECTION
+ 
+ INTRODUCTION
+ ------------
+
+This file contains details and steps to install MySQL on the Cloud Server. After we have finished installing MySQL on our server we need to configure it so that it can be accessed from a remote location i.e in other words so that a local program can access the MySQL Database that is on the server anytime.
+
+ 
+ REQUIREMENTS
+ ------------
+Before we start, it is recommended to put these points in mind
+
+ * Good Internet Connection
+ * PuTTY (http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html) for Windows
+ * OpenSSH for Linux or Mac OS X
+ 
+PuTTY or OpenSSH are used to access to our cloud server. We even use these software if need to install any further application on our server. These are no different than our traditional Linux Terminal, so it is very easy to operate it.
+
+
+INSTALLATION
+------------
+
+ * To install MySQL on your cloud server use this command "sudo apt-get install mysql-server"
+ * Later it asks you to setup password for your default root MySQL user. Though setting a password is not compulsory,it is recommended    to set it up.
+ 
+Now you are done installing MySQL on your server. Databases, Tables and other MySQL related stuff can be created just like how create normally in your local server 
+ 
+ CONFIGURATION
+ -------------
+
+By default your MySQL Port 3306 is closed for security purposes. Now we need to configure our MySQL in such a way that, our databases can be accessed from any remote location. So we perform the following steps:
+ 
+ * We need to edit our my.cnf file. So we open it through nano text editor using the following command "sudo nano /etc/mysql/my.cnf"
+ * This file is divided into many sections. Look for section labelled [mysqld]
+ * Use Ctrl+V to navigate to the next page
+ * Within this section(in the area between this tag and the next section marker), you'll need to find a parameter called bind-address    This basically tells the database software which network address to listen to connections on.
+ * Now change your bind address in such a way - bind-address        = your_database_IP . Where your_database_IP is your cloud server's    IP address
+ * To save your file now press Ctrl+X then Y and followed by Enter key.
+ * To apply the changes to the my.cnf file we need to restart our MySQL server using this command "sudo service mysql restart"
+ * Now login to your SQL server using the following command "sudo -u root -p" when prompted for password enter your SQL password which    you setup while installing MySQL
+ * Now use the command ""GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'Your Password' WITH GRANT OPTION;" to grant Database    user permission so it can be accessed remotely. Replace Your Password with your user password.
+ * Flush the privileges to write them to disk and begin using the command "FLUSH PRIVILEGES;"
+ * Now, you can exit the MySQL prompt by typing "exit"
+
+ TEST REMOTE CONNECTION
+ ----------------------
+ 
+To verify that we have successfully configured our MySQL Database try the following command from any computer which has MySQL Client installed on it. To test the connection use the command "mysql -u root -h 188.166.176.248 -p" .Then you will asked to enter your password. Later if everything went well you should now be taken to SQL Prompt.
